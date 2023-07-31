@@ -5,12 +5,15 @@ Website was created using python and flask. You can download it and install pip 
 ## How to run the app <br />
 **MacOS/Linux guide:** <br />
 Go to the QRify folder in terminal <br />
+<br />
 $ python3 -m venv .venv <br />
 $ . .venv/bin/activate <br />
 $ pip install -r requirements.txt <br />
 $ flask --app main run <br />
+<br />
 **Windows guide:** <br />
 Go to the QRify folder in terminal <br />
+<br />
 > py -3 -m venv .venv <br />
 > .venv\Scripts\activate <br />
 > pip install -r requirements.txt <br />
