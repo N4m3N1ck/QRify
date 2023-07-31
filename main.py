@@ -3,6 +3,7 @@ import re
 from flask import Flask
 from flask import render_template
 from flask import request
+import qrcode
 app = Flask(__name__)
 
 
@@ -26,9 +27,13 @@ def qr_code():
     if request.method == "POST":
         data = request.form.get("file", "_")
         data = remove_special_characters(data)
-        print(repr(data))
         data_bytes = data.encode('ascii')
         base64_bytes = base64.b64encode(data_bytes)
-        return "data:text/html;base64,"+str(base64_bytes)[2:-1]
+        data_url = "data:text/html;base64,"+str(base64_bytes)[2:-1]
+        qr_code = qrcode.make(data_url)
+        qr_code.save('QRcode.png')
+        with open("QRcode.png", "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read())
+        return render_template("QRcode.html",url = data_url,img = "data:image/png;base64,"+str(encoded_string)[2:-1])
     if request.method == "GET":
         return ":("
