@@ -14,7 +14,7 @@ $ flask --app main run <br />
 **Windows guide:** <br />
 Go to the QRify folder in terminal <br />
 <br />
-> py -3 -m venv .venv <br />
-> .venv\Scripts\activate <br />
-> pip install -r requirements.txt <br />
-> flask --app main run <br />
+\> py -3 -m venv .venv <br />
+\> .venv\Scripts\activate <br />
+\> pip install -r requirements.txt <br />
+\> flask --app main run <br />
