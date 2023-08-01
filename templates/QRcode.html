@@ -5,7 +5,19 @@
     <title>QRify</title>
 </head>
 <body>
-  <a href="{{url}}">Click to open your page</a>
-  <img src="{{img}}", width="500", height="500">
+    <img src="{{img}}", width="500", height="500"><br>
+    <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
+    <form action="/qrcode" method="post">
+        <label for="file">Edit your code here:</label><br>
+        <textarea type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
+        <label for="encodeSelect">Select the encoding type:</label>
+        <select id="encodeSelect" name="encodeSelect">
+            <option value="optimal">Optimal</option>
+            <option value="base64">Base 64</option>
+            <option value="url">URL-Encode</option>
+        </select><br>
+        <input type="submit" value="Submit">
+    </form>
+    <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>
 </html>

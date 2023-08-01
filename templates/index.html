@@ -9,8 +9,14 @@
     </header>
     <p>Fit your website in a QR code</p>
     <form action="/qrcode" method="post">
-        <label for="file">Upload your file here:</label><br>
-        <textarea type="text" id="file" name="file" rows="4" cols="50"></textarea><br>
+        <label for="file">Enter your .html code below:</label><br>
+        <textarea type="text" id="file" name="file" rows="20" cols="100" placeholder="Enter code here..."></textarea><br>
+        <label for="encodeSelect">Select the encoding type:</label>
+        <select id="encodeSelect" name="encodeSelect">
+            <option value="optimal">Optimal</option>
+            <option value="base64">Base 64</option>
+            <option value="url">URL-Encode</option>
+        </select><br>
         <input type="submit" value="Submit">
     </form>
 </html>
