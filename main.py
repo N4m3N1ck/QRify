@@ -7,6 +7,7 @@ from flask import request
 import qrcode
 import urllib.parse
 import io
+import htmlmin
 
 app = Flask(__name__)
 
@@ -16,30 +17,22 @@ def url_encode_string(input_string):
     return encoded_string
 
 
-def remove_special_characters(input_string):
-    input_string = re.sub(' +', ' ', input_string)
-    special_characters = ["\r", "\n", "\t"]
-    for char in special_characters:
-        input_string = input_string.replace(char, "")
-    return input_string
-
-
 @app.route("/create/html", methods=["GET", "POST"])
 def qr_code_html():
     if request.method == "POST":
         data = request.form.get("file", "<h1 style='color:red'>Hello World!</h1>")
-        data = remove_special_characters(data)
+        data = htmlmin.minify(data, remove_empty_space=True,remove_comments=True,remove_all_empty_space=True,remove_optional_attribute_quotes=True,reduce_empty_attributes=True,reduce_boolean_attributes=True,keep_pre=True)
         code = data
         encoding = request.form.get("encodeSelect", "base64")
         data_url = ""
         if encoding == "base64":
-            data_bytes = data.encode('ascii')
+            data_bytes = data.encode('utf-8')
             base64_bytes = base64.b64encode(data_bytes)
             data_url = "data:text/html;base64," + str(base64_bytes)[2:-1]
         elif encoding == "url":
             data_url = "data:text/html," + url_encode_string(data)
         elif encoding == "optimal":
-            data_bytes = data.encode('ascii')
+            data_bytes = data.encode('utf-8')
             base64_bytes = base64.b64encode(data_bytes)
             data_url = "data:text/html;base64," + str(base64_bytes)[2:-1]
             if len("data:text/html," + url_encode_string(data)) < len(data_url):
