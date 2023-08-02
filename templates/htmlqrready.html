@@ -5,9 +5,16 @@
     <title>QRify</title>
 </head>
 <body>
-    <img src="{{img}}", width="500", height="500"><br>
-    <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
-    <form action="/qrcode" method="post">
+    {%if req=='POST'%}
+        {%if img!='error'%}
+            <img src="{{img}}", width="500", height="500"><br>
+        {%else%}
+            <img src="{{url_for('static', filename='images/error.png')}}", width="500", height="500"><br>
+            <p>Failed to generate a QR code. File is too large. Try reducing the size of your code by removing unnecessary characters or using external files.</p>
+        {%endif%}
+        <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
+    {%endif%}
+    <form action="/create/html" method="post">
         <label for="file">Edit your code here:</label><br>
         <textarea type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
         <label for="encodeSelect">Select the encoding type:</label>
