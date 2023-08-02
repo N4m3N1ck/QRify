@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Qrify</title>
+</head>
+<body>
+    {%if req=='POST'%}
+        {%if img!='error'%}
+            <img src="{{img}}", width="500", height="500"><br>
+        {%else%}
+            <p>Failed to generate a QR code. The image is too large.</p>
+        {%endif%}
+        <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
+    {%endif%}
+    <form action="/create/image" method="post" enctype="multipart/form-data">
+        <label for="file">Upload the image: </label><br>
+        <input type="file" id="file" name="file" required><br>
+        <input type="submit" value="Create">
+    </form>
+    <script src="{{url_for('static', filename='app.js')}}"></script>
+</body>
+</html>

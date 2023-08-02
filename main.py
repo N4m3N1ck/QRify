@@ -1,10 +1,12 @@
 import base64
+from PIL import Image
 import re
 from flask import Flask
 from flask import render_template
 from flask import request
 import qrcode
 import urllib.parse
+import io
 
 app = Flask(__name__)
 
@@ -23,7 +25,7 @@ def remove_special_characters(input_string):
 
 
 @app.route("/create/html", methods=["GET", "POST"])
-def qr_code():
+def qr_code_html():
     if request.method == "POST":
         data = request.form.get("file", "<h1 style='color:red'>Hello World!</h1>")
         data = remove_special_characters(data)
@@ -52,6 +54,31 @@ def qr_code():
         except ValueError:
             img_data = "error"
         return render_template("htmlqrready.html", url=data_url, img=img_data,
-                               code=code,req="POST")
+                               code=code, req="POST")
     if request.method == "GET":
-        return render_template("htmlqrready.html",req="GET")
+        return render_template("htmlqrready.html", req="GET")
+
+
+@app.route("/create/image", methods=["GET", "POST"])
+def qr_code_img():
+    if request.method == "POST":
+        uploaded_file = request.files["file"]
+        pil_img = Image.open(uploaded_file, mode='r')
+        img_byte_arr = io.BytesIO()
+        pil_img.save(img_byte_arr, format='PNG')
+        img_byte_arr = img_byte_arr.getvalue()
+        file_bytes=img_byte_arr
+        encoded = base64.b64encode(file_bytes)
+        img = "data:image/png;base64," + str(encoded)[2:-1]
+        qr_data = ""
+        try:
+            qr_code_img = qrcode.make(img)
+            qr_code_img.save('QRcode.png')
+            with open("QRcode.png", "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read())
+            qr_data = "data:image/png;base64," + str(encoded_string)[2:-1]
+        except ValueError:
+            qr_data = "error"
+        return render_template("imgqrready.html", req="POST", url=img,img=qr_data)
+    elif request.method == "GET":
+        return render_template("imgqrready.html", req="GET")
