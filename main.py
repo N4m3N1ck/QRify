@@ -1,15 +1,12 @@
 from convert_to_b64 import *
 from data_url_creator import *
-from PIL import Image
+from img_converter import *
 import re
 from flask import Flask
 from flask import render_template
 from flask import request
 import qrcode
-import urllib.parse
-import io
 import htmlmin
-
 
 app = Flask(__name__)
 
@@ -18,8 +15,9 @@ def url_encode_string(input_string):
     encoded_string = urllib.parse.quote(input_string)
     return encoded_string
 
+
 def remove_special_characters(input_string):
-    input_string = re.sub(' +', ' ', input_string)
+    # input_string = re.sub(' +', ' ', input_string)
     special_characters = ["\r", "\n", "\t"]
     for char in special_characters:
         input_string = input_string.replace(char, "")
@@ -45,13 +43,12 @@ def qr_code_html():
             data_url = create_data_url("text", "html", True, string_to_b64(data), False)
             if len(create_data_url("text", "html", False, data, True)) < len(data_url):
                 data_url = create_data_url("text", "html", False, data, True)
-        img_data = ""
         try:
             qr_code_img_file = qrcode.make(data_url)
             qr_code_img_file.save('QRcode.png')
             with open("QRcode.png", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            img_data = "data:image/png;base64," + str(encoded_string)[2:-1]
+            img_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
             img_data = "error"
         return render_template("htmlqrready.html", url=data_url, img=img_data,
@@ -64,19 +61,14 @@ def qr_code_html():
 def qr_code_img():
     if request.method == "POST":
         uploaded_file = request.files["file"]
-        pil_img = Image.open(uploaded_file, mode='r')
-        img_byte_arr = io.BytesIO()
-        pil_img.save(img_byte_arr, format='PNG')
-        img_byte_arr = img_byte_arr.getvalue()
-        encoded = base64.b64encode(img_byte_arr)
-        img = "data:image/png;base64," + str(encoded)[2:-1]
-        qr_data = ""
+        encoded = base64.b64encode(convert_image(uploaded_file))
+        img = create_data_url("image", "png", True, str(encoded)[2:-1], False)
         try:
             qr_code_img_f = qrcode.make(img)
             qr_code_img_f.save('QRcode.png')
             with open("QRcode.png", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
-            qr_data = "data:image/png;base64," + str(encoded_string)[2:-1]
+            qr_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
             qr_data = "error"
         return render_template("imgqrready.html", req="POST", url=img, img=qr_data)
