@@ -1,4 +1,5 @@
 from convert_to_b64 import *
+from data_url_creator import *
 from PIL import Image
 import re
 from flask import Flask
@@ -8,6 +9,7 @@ import qrcode
 import urllib.parse
 import io
 import htmlmin
+
 
 app = Flask(__name__)
 
@@ -36,17 +38,17 @@ def qr_code_html():
         encoding = request.form.get("encodeSelect", "base64")
         data_url = ""
         if encoding == "base64":
-            data_url = "data:text/html;base64," + string_to_b64(data)
+            data_url = create_data_url("text", "html", True, string_to_b64(data), False)
         elif encoding == "url":
-            data_url = "data:text/html," + url_encode_string(data)
+            data_url = create_data_url("text", "html", False, data, True)
         elif encoding == "optimal":
-            data_url = "data:text/html;base64," + string_to_b64(data)
-            if len("data:text/html," + url_encode_string(data)) < len(data_url):
-                data_url = "data:text/html," + url_encode_string(data)
+            data_url = create_data_url("text", "html", True, string_to_b64(data), False)
+            if len(create_data_url("text", "html", False, data, True)) < len(data_url):
+                data_url = create_data_url("text", "html", False, data, True)
         img_data = ""
         try:
-            qr_code_img = qrcode.make(data_url)
-            qr_code_img.save('QRcode.png')
+            qr_code_img_file = qrcode.make(data_url)
+            qr_code_img_file.save('QRcode.png')
             with open("QRcode.png", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
             img_data = "data:image/png;base64," + str(encoded_string)[2:-1]
