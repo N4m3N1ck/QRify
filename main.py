@@ -1,4 +1,4 @@
-import base64
+from convert_to_b64 import *
 from PIL import Image
 import re
 from flask import Flask
@@ -36,15 +36,11 @@ def qr_code_html():
         encoding = request.form.get("encodeSelect", "base64")
         data_url = ""
         if encoding == "base64":
-            data_bytes = data.encode('utf-8')
-            base64_bytes = base64.b64encode(data_bytes)
-            data_url = "data:text/html;base64," + str(base64_bytes)[2:-1]
+            data_url = "data:text/html;base64," + string_to_b64(data)
         elif encoding == "url":
             data_url = "data:text/html," + url_encode_string(data)
         elif encoding == "optimal":
-            data_bytes = data.encode('utf-8')
-            base64_bytes = base64.b64encode(data_bytes)
-            data_url = "data:text/html;base64," + str(base64_bytes)[2:-1]
+            data_url = "data:text/html;base64," + string_to_b64(data)
             if len("data:text/html," + url_encode_string(data)) < len(data_url):
                 data_url = "data:text/html," + url_encode_string(data)
         img_data = ""
@@ -70,8 +66,7 @@ def qr_code_img():
         img_byte_arr = io.BytesIO()
         pil_img.save(img_byte_arr, format='PNG')
         img_byte_arr = img_byte_arr.getvalue()
-        file_bytes = img_byte_arr
-        encoded = base64.b64encode(file_bytes)
+        encoded = base64.b64encode(img_byte_arr)
         img = "data:image/png;base64," + str(encoded)[2:-1]
         qr_data = ""
         try:
