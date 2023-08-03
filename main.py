@@ -16,12 +16,22 @@ def url_encode_string(input_string):
     encoded_string = urllib.parse.quote(input_string)
     return encoded_string
 
+def remove_special_characters(input_string):
+    input_string = re.sub(' +', ' ', input_string)
+    special_characters = ["\r", "\n", "\t"]
+    for char in special_characters:
+        input_string = input_string.replace(char, "")
+    return input_string
+
 
 @app.route("/create/html", methods=["GET", "POST"])
 def qr_code_html():
     if request.method == "POST":
         data = request.form.get("file", "<h1 style='color:red'>Hello World!</h1>")
-        data = htmlmin.minify(data, remove_empty_space=True,remove_comments=True,remove_all_empty_space=True,remove_optional_attribute_quotes=True,reduce_empty_attributes=True,reduce_boolean_attributes=True,keep_pre=True)
+        data = htmlmin.minify(data, remove_empty_space=True, remove_comments=True, remove_all_empty_space=True,
+                              remove_optional_attribute_quotes=True, reduce_empty_attributes=True,
+                              reduce_boolean_attributes=True, keep_pre=True)
+        data = remove_special_characters(data)
         code = data
         encoding = request.form.get("encodeSelect", "base64")
         data_url = ""
@@ -60,18 +70,18 @@ def qr_code_img():
         img_byte_arr = io.BytesIO()
         pil_img.save(img_byte_arr, format='PNG')
         img_byte_arr = img_byte_arr.getvalue()
-        file_bytes=img_byte_arr
+        file_bytes = img_byte_arr
         encoded = base64.b64encode(file_bytes)
         img = "data:image/png;base64," + str(encoded)[2:-1]
         qr_data = ""
         try:
-            qr_code_img = qrcode.make(img)
-            qr_code_img.save('QRcode.png')
+            qr_code_img_f = qrcode.make(img)
+            qr_code_img_f.save('QRcode.png')
             with open("QRcode.png", "rb") as image_file:
                 encoded_string = base64.b64encode(image_file.read())
             qr_data = "data:image/png;base64," + str(encoded_string)[2:-1]
         except ValueError:
             qr_data = "error"
-        return render_template("imgqrready.html", req="POST", url=img,img=qr_data)
+        return render_template("imgqrready.html", req="POST", url=img, img=qr_data)
     elif request.method == "GET":
         return render_template("imgqrready.html", req="GET")
