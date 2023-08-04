@@ -1,6 +1,7 @@
 from convert_to_b64 import *
 from data_url_creator import *
 from img_converter import *
+from qr_gen import *
 import re
 from flask import Flask
 from flask import render_template
@@ -17,7 +18,7 @@ def url_encode_string(input_string):
 
 
 def remove_special_characters(input_string):
-    # input_string = re.sub(' +', ' ', input_string)
+    input_string = re.sub(' +', ' ', input_string)
     special_characters = ["\r", "\n", "\t"]
     for char in special_characters:
         input_string = input_string.replace(char, "")
@@ -64,9 +65,7 @@ def qr_code_img():
         encoded = base64.b64encode(convert_image(uploaded_file))
         img = create_data_url("image", "png", True, str(encoded)[2:-1], False)
         try:
-            qr_code_img_f = qrcode.make(img)
-            qr_bytes = io.BytesIO()
-            qr_code_img_f.save(qr_bytes, format="PNG")
+            qr_bytes = create_qr_code(img)
             encoded_string = base64.b64encode(qr_bytes.getvalue())
             qr_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:

@@ -7,7 +7,7 @@
 <body>
     {%if req=='POST'%}
         {%if img!='error'%}
-            <img src="{{img}}", width="200", height="200"><br>
+            <img src="{{img}}", width="500", height="500"><br>
         {%else%}
             <p>Failed to generate a QR code. The image is too large.</p>
         {%endif%}
