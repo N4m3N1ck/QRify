@@ -44,10 +44,10 @@ def qr_code_html():
             if len(create_data_url("text", "html", False, data, True)) < len(data_url):
                 data_url = create_data_url("text", "html", False, data, True)
         try:
-            qr_code_img_file = qrcode.make(data_url)
-            qr_code_img_file.save('QRcode.png')
-            with open("QRcode.png", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
+            qr_code_img_f = qrcode.make(data_url)
+            qr_bytes = io.BytesIO()
+            qr_code_img_f.save(qr_bytes, format="PNG")
+            encoded_string = base64.b64encode(qr_bytes.getvalue())
             img_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
             img_data = "error"
@@ -65,9 +65,9 @@ def qr_code_img():
         img = create_data_url("image", "png", True, str(encoded)[2:-1], False)
         try:
             qr_code_img_f = qrcode.make(img)
-            qr_code_img_f.save('QRcode.png')
-            with open("QRcode.png", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read())
+            qr_bytes = io.BytesIO()
+            qr_code_img_f.save(qr_bytes, format="PNG")
+            encoded_string = base64.b64encode(qr_bytes.getvalue())
             qr_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
             qr_data = "error"
