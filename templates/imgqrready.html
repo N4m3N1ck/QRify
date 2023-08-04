@@ -23,6 +23,11 @@
     <form action="/create/image" method="post" enctype="multipart/form-data">
         <label for="file">Upload the image: </label><br>
         <input type="file" id="file" name="file" required><br>
+        <label for="formatSelect">Select the converted image format:</label>
+        <select id="formatSelect" name="formatSelect">
+            <option value="PNG">PNG</option>
+            <option value="JPEG">JPEG</option>
+        </select><br>
         <input type="submit" value="Create">
     </form>
     <script src="{{url_for('static', filename='app.js')}}"></script>

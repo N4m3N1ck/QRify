@@ -62,8 +62,9 @@ def qr_code_html():
 def qr_code_img():
     if request.method == "POST":
         uploaded_file = request.files["file"]
-        encoded = base64.b64encode(convert_image(uploaded_file))
-        img = create_data_url("image", "png", True, str(encoded)[2:-1], False)
+        img_format = request.form.get("formatSelect","PNG")
+        encoded = base64.b64encode(convert_image(uploaded_file,img_format))
+        img = create_data_url("image", img_format.lower(), True, str(encoded)[2:-1], False)
         try:
             qr_bytes = create_qr_code(img)
             encoded_string = base64.b64encode(qr_bytes.getvalue())
