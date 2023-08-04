@@ -7,13 +7,14 @@
 <body>
     {%if req=='POST'%}
         {%if img!='error'%}
-            <img src="{{img}}", width="500", height="500"><br>
+            <img src="{{img}}", width="200", height="200"><br>
         {%else%}
             <p>Failed to generate a QR code. The image is too large.</p>
         {%endif%}
         <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
         <p>Use the image in your html code:</p>
         <input id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")'>Copy code</button><br>
+        <img src="{{url}}" width="200" style="image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;">
     {%endif%}
     <form action="/create/image" method="post" enctype="multipart/form-data">
         <label for="file">Upload the image: </label><br>

@@ -7,9 +7,8 @@
 <body>
     {%if req=='POST'%}
         {%if img!='error'%}
-            <img src="{{img}}", width="500", height="500"><br>
+            <img src="{{img}}", width="200", height="200"><br>
         {%else%}
-            <img src="{{url_for('static', filename='images/error.png')}}", width="500", height="500"><br>
             <p>Failed to generate a QR code. File is too large. Try reducing the size of your code by removing unnecessary characters or using external files.</p>
         {%endif%}
         <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
