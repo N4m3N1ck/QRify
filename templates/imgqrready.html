@@ -11,9 +11,13 @@
         {%else%}
             <p>Failed to generate a QR code. The image is too large.</p>
         {%endif%}
-        <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
-        <p>Use the image in your html code:</p>
-        <input id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")'>Copy code</button><br>
+        {%if data_show==True%}
+            <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
+            <p>Use the image in your html code:</p>
+            <input id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")'>Copy code</button><br>
+        {%else%}
+            <p>The image is too large to display the data url</p>
+        {%endif%}
         <img src="{{url}}" width="200" style="image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;">
     {%endif%}
     <form action="/create/image" method="post" enctype="multipart/form-data">

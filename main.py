@@ -70,6 +70,10 @@ def qr_code_img():
             qr_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
             qr_data = "error"
-        return render_template("imgqrready.html", req="POST", url=img, img=qr_data)
+        if len(img) > 10 ** 6:
+            display = False
+        else:
+            display = True
+        return render_template("imgqrready.html", req="POST", url=img, img=qr_data, data_show=display)
     elif request.method == "GET":
         return render_template("imgqrready.html", req="GET")
