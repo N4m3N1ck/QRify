@@ -29,10 +29,13 @@ def remove_special_characters(input_string):
 def qr_code_html():
     if request.method == "POST":
         data = request.form.get("file", "<h1 style='color:red'>Hello World!</h1>")
-        data = htmlmin.minify(data, remove_empty_space=True, remove_comments=True, remove_all_empty_space=True,
+        minimize = request.form.get("min")!=None
+        if minimize:
+            data = htmlmin.minify(data, remove_empty_space=True, remove_comments=True, remove_all_empty_space=True,
                               remove_optional_attribute_quotes=True, reduce_empty_attributes=True,
                               reduce_boolean_attributes=True, keep_pre=True)
-        data = remove_special_characters(data)
+        if minimize:
+            data = remove_special_characters(data)
         code = data
         encoding = request.form.get("encodeSelect", "base64")
         data_url = ""
