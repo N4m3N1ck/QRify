@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>QRify</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
 <body onload="compile('file')">
     {%if req=='POST'%}
@@ -26,7 +27,7 @@
         <label for="min">Minimize HTML</label><br>
         <input type="submit" value="Create">
     </form>
-    <div id="output"></div>
+    <div id="output" class="compiler"></div>
     <script src="{{url_for('static',filename='compiler.js')}}" defer></script>
     <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>
