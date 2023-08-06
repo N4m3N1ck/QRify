@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qrify</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
 <body>
     {%if req=='POST'%}
         {%if img!='error'%}
-            <img src="{{img}}", width="500", height="500"><br>
+            <img src="{{img}}" class="image"><br>
         {%else%}
             <p>Failed to generate a QR code. The image is too large.</p>
         {%endif%}
         {%if data_show==True%}
-            <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
+            <input id="data-url" readonly value="{{url}}" size="50"><button class="iconButton" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
             <p>Use the image in your html code:</p>
             <input id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")'>Copy code</button><br>
         {%else%}
@@ -28,7 +29,7 @@
             <option value="PNG">PNG</option>
             <option value="JPEG">JPEG</option>
         </select><br>
-        <input type="submit" value="Create">
+        <input type="submit" value="Create" class="button">
     </form>
     <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>

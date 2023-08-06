@@ -1,3 +1,44 @@
+body{
+    font-family: Arial, monospace;
+    background-color: #EDF1D6;
+}
 .compiler{
+    background-color: white;
+    padding: 20px;
     border-style: solid;
+    font-family: 'Times New Roman';
+}
+.image{
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+.iconButton{
+    background-color: #609966;
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    font-weight: bold;
+}
+.button{
+    background-color: #609966;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.checkbox{
+    accent-color: #609966;
+}
+.editor{
+    background-color: #40513B;
+    font-family: "Courier New", monospace;
+    color: white;
 }

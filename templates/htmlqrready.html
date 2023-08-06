@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QRify</title>
     <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
 <body onload="compile('file')">
     {%if req=='POST'%}
         {%if img!='error'%}
-            <img src="{{img}}", width="500", height="500"><br>
+            <img src="{{img}}" class="image"><br>
         {%else%}
             <p>Failed to generate a QR code. File is too large. Try reducing the size of your code by removing unnecessary characters or using external files.</p>
         {%endif%}
-        <input id="data-url" readonly value="{{url}}" size="50"><button onclick='copyToClipBoard("data-url")'>Copy URL</button><br>
+        <input id="data-url" readonly value="{{url}}" size="50"><button class="iconButton" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
     {%endif%}
     <form action="/create/html" method="post">
         <label for="file">Edit your code here:</label><br>
-        <textarea oninput="compile('file')" type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
+        <textarea class="editor" oninput="compile('file')" type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
         <label for="encodeSelect">Select the encoding type:</label>
         <select id="encodeSelect" name="encodeSelect">
             <option value="optimal">Optimal</option>
             <option value="base64">Base 64</option>
             <option value="url">URL-Encode</option>
         </select><br>
-        <input type="checkbox" id="min" name="min" value="min">
+        <input type="checkbox" id="min" name="min" value="min" class="checkbox">
         <label for="min">Minimize HTML</label><br>
-        <input type="submit" value="Create">
+        <input type="submit" value="Create" class="button">
     </form>
     <div id="output" class="compiler"></div>
     <script src="{{url_for('static',filename='compiler.js')}}" defer></script>

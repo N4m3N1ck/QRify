@@ -48,9 +48,7 @@ def qr_code_html():
             if len(create_data_url("text", "html", False, data, True)) < len(data_url):
                 data_url = create_data_url("text", "html", False, data, True)
         try:
-            qr_code_img_f = qrcode.make(data_url)
-            qr_bytes = io.BytesIO()
-            qr_code_img_f.save(qr_bytes, format="PNG")
+            qr_bytes = create_qr_code(data_url)
             encoded_string = base64.b64encode(qr_bytes.getvalue())
             img_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
