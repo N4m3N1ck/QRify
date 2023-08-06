@@ -15,7 +15,7 @@
         {%if data_show==True%}
             <input id="data-url" readonly value="{{url}}" size="50"><button class="iconButton" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
             <p>Use the image in your html code:</p>
-            <input id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")'>Copy code</button><br>
+            <input style="copyString" id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")'>Copy code</button><br>
         {%else%}
             <p>The image is too large to display the data url</p>
         {%endif%}
