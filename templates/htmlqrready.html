@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>QRify</title>
 </head>
-<body>
+<body onload="compile('file')">
     {%if req=='POST'%}
         {%if img!='error'%}
             <img src="{{img}}", width="500", height="500"><br>
@@ -15,7 +15,7 @@
     {%endif%}
     <form action="/create/html" method="post">
         <label for="file">Edit your code here:</label><br>
-        <textarea type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
+        <textarea oninput="compile('file')" type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
         <label for="encodeSelect">Select the encoding type:</label>
         <select id="encodeSelect" name="encodeSelect">
             <option value="optimal">Optimal</option>
@@ -26,6 +26,8 @@
         <label for="min">Minimize HTML</label><br>
         <input type="submit" value="Create">
     </form>
+    <div id="output"></div>
+    <script src="{{url_for('static',filename='compiler.js')}}" defer></script>
     <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>
 </html>
