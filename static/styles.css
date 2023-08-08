@@ -1,9 +1,13 @@
 * {
     margin: 0;
     padding: 0;
+    font-size: 18px;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box; 
 }
 body{
-    font-family: Arial, monospace;
+    font-family: Arial, sans-serif;
     background-color: #526D82;
     color: #DDE6ED;
 }
@@ -13,7 +17,10 @@ body{
     height: 100%;
     border-radius: 10px;
     border-style: solid;
+    border-color: #27374D;
+    border-width: 4px;
     font-family: 'Times New Roman';
+    padding: 20px;
 }
 .image{
     width: 100%;
@@ -48,11 +55,18 @@ body{
     accent-color: #609966;
 }
 .editor{
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #DDE6ED;
+    border-width: 4px;
+    letter-spacing: 3px;
+    line-height: 24px;
     resize: none;
+    padding: 30px;
     height: 500px;
     width: 100%;
     background-color: #27374D;
-    font-family: "Courier New", monospace;
+    font-family: Monaco, "Courier New", monospace;
     color: #DDE6ED;
 }
 .copyString{
@@ -67,7 +81,7 @@ body{
 .sameRow{
     display: inline-block;
 /*    float: left;*/
-    margin: 20px;
+    margin: 40px;
     width: 40%;
 }
 @media screen and (max-width: 800px) {
