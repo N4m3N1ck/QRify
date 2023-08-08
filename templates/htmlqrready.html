@@ -5,29 +5,33 @@
     <title>QRify</title>
     <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
-<body onload="compile('file')">
-    {%if req=='POST'%}
-        {%if img!='error'%}
-            <img src="{{img}}" class="image"><br>
-        {%else%}
-            <p>Failed to generate a QR code. File is too large. Try reducing the size of your code by removing unnecessary characters or using external files.</p>
+<body onload="compile('file');hideIfEmpty('file','output');">
+    <div class="sameRow">
+        {%if req=='POST'%}
+            {%if img!='error'%}
+                <img src="{{img}}" class="image"><br>
+            {%else%}
+                <p>Failed to generate a QR code. File is too large. Try reducing the size of your code by removing unnecessary characters or using external files.</p>
+            {%endif%}
+            <input class="copyString" id="data-url" readonly value="{{url}}" size="50"><button class="iconButton" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
         {%endif%}
-        <input class="copyString" id="data-url" readonly value="{{url}}" size="50"><button class="iconButton" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
-    {%endif%}
-    <form action="/create/html" method="post">
-        <label for="file">Edit your code here:</label><br>
-        <textarea class="editor" oninput="compile('file')" type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
-        <label for="encodeSelect">Select the encoding type:</label>
-        <select id="encodeSelect" name="encodeSelect">
-            <option value="optimal">Optimal</option>
-            <option value="base64">Base 64</option>
-            <option value="url">URL-Encode</option>
-        </select><br>
-        <input type="checkbox" id="min" name="min" value="min" class="checkbox">
-        <label for="min">Minimize HTML</label><br>
-        <input type="submit" value="Create" class="button">
-    </form>
-    <div id="output" class="compiler"></div>
+        <form action="/create/html" method="post">
+            <label for="file">Edit your code here:</label><br>
+            <textarea class="editor" oninput="compile('file');hideIfEmpty('file','output');" type="text" id="file" name="file" rows="20" cols="100"placeholder="Enter code here...">{{code}}</textarea><br>
+            <label for="encodeSelect">Select the encoding type:</label>
+            <select id="encodeSelect" name="encodeSelect">
+                <option value="optimal">Optimal</option>
+                <option value="base64">Base 64</option>
+                <option value="url">URL-Encode</option>
+            </select><br>
+            <input type="checkbox" id="min" name="min" value="min" class="checkbox">
+            <label for="min">Minimize HTML</label><br>
+            <input type="submit" value="Create" class="button">
+        </form>
+    </div>
+    <div class="sameRow" style="height:1000px">
+        <iframe id="output" class="compiler"></iframe>   
+    </div>
     <script src="{{url_for('static',filename='compiler.js')}}" defer></script>
     <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>
