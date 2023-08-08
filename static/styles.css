@@ -1,13 +1,17 @@
-
+* {
+    margin: 0;
+    padding: 0;
+}
 body{
     font-family: Arial, monospace;
-    background-color: #EDF1D6;
+    background-color: #526D82;
+    color: #DDE6ED;
 }
 .compiler{
     background-color: white;
-    width:90%;
-    padding: 20px;
+    width:100%;
     height: 100%;
+    border-radius: 10px;
     border-style: solid;
     font-family: 'Times New Roman';
 }
@@ -17,9 +21,9 @@ body{
     height: auto;
 }
 .iconButton{
-    background-color: #609966;
+    background-color: #9DB2BF;
     border: none;
-    color: white;
+    color: #27374D;
     padding-top:7px;
     padding-bottom: 17px;
     padding-left: 20px;
@@ -31,9 +35,9 @@ body{
     font-weight: bold;
 }
 .button{
-    background-color: #609966;
+    background-color: #9DB2BF;
     border: none;
-    color: white;
+    color: #27374D;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -44,23 +48,30 @@ body{
     accent-color: #609966;
 }
 .editor{
-    background-color: #40513B;
+    resize: none;
+    height: 500px;
+    width: 100%;
+    background-color: #27374D;
     font-family: "Courier New", monospace;
-    color: white;
+    color: #DDE6ED;
 }
 .copyString{
     font-size: 16px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #40513B;
-    color:white;
+    background-color: #27374D;
+    color: #DDE6ED;
+}
+.center{
+    text-align: center;
+    margin: 0 auto;
 }
 .sameRow{
-  float: left;
-  width: 50%;
+    display: inline-block;
+/*    float: left;*/
+    margin: 20px;
+    width: 40%;
 }
 @media screen and (max-width: 800px) {
-  .sameRow{
-    width: 100%;
-  }
+    .sameRow{
+        width: 90%;
+    }
 }
