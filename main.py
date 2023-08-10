@@ -25,8 +25,33 @@ def remove_special_characters(input_string):
     return input_string
 
 
-@app.route("/create/html", methods=["GET", "POST"])
+@app.route("/create/html")
 def qr_code_html():
+    return render_template("htmlqrready.html")
+
+
+@app.route("/create/image", methods=["GET", "POST"])
+def qr_code_img():
+    if request.method == "POST":
+        uploaded_file = request.files["file"]
+        img_format = request.form.get("formatSelect","PNG")
+        encoded = base64.b64encode(convert_image(uploaded_file,img_format))
+        img = create_data_url("image", img_format.lower(), True, str(encoded)[2:-1], False)
+        try:
+            qr_bytes = create_qr_code(img)
+            encoded_string = base64.b64encode(qr_bytes.getvalue())
+            qr_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
+        except ValueError:
+            qr_data = "error"
+        if len(img) > 10 ** 6:
+            display = False
+        else:
+            display = True
+        return render_template("imgqrready.html", req="POST", url=img, img=qr_data, data_show=display)
+    elif request.method == "GET":
+        return render_template("imgqrready.html", req="GET")
+@app.route("/post",methods=["POST"])
+def qr_ready():
     if request.method == "POST":
         data = request.form.get("file", "<h1 style='color:red'>Hello World!</h1>")
         minimize = request.form.get("min")!=None
@@ -53,29 +78,6 @@ def qr_code_html():
             img_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
             img_data = "error"
-        return render_template("htmlqrready.html", url=data_url, img=img_data,
+        return render_template("post.html", url=data_url, img=img_data,
                                code=code, req="POST")
-    if request.method == "GET":
-        return render_template("htmlqrready.html", req="GET")
-
-
-@app.route("/create/image", methods=["GET", "POST"])
-def qr_code_img():
-    if request.method == "POST":
-        uploaded_file = request.files["file"]
-        img_format = request.form.get("formatSelect","PNG")
-        encoded = base64.b64encode(convert_image(uploaded_file,img_format))
-        img = create_data_url("image", img_format.lower(), True, str(encoded)[2:-1], False)
-        try:
-            qr_bytes = create_qr_code(img)
-            encoded_string = base64.b64encode(qr_bytes.getvalue())
-            qr_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
-        except ValueError:
-            qr_data = "error"
-        if len(img) > 10 ** 6:
-            display = False
-        else:
-            display = True
-        return render_template("imgqrready.html", req="POST", url=img, img=qr_data, data_show=display)
-    elif request.method == "GET":
-        return render_template("imgqrready.html", req="GET")
+        

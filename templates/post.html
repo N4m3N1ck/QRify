@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRify</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+</head>
+<body>
+    {%if img!='error'%}
+        <img src="{{img}}" class="image"><br>
+    {%else%}
+        <p>Failed to generate a QR code. File is too large. Try reducing the size of your code by removing unnecessary characters or using external files.</p>
+    {%endif%}
+    <input class="copyString" id="data-url" readonly value="{{url}}" size="50"><button class="iconButton" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
+</body>
+</html>
