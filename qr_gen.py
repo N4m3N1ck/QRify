@@ -11,7 +11,7 @@ def create_qr_code(data):
         if item[0] != 0 or item[1] != 0 or item[2] != 0:
             newData.append((255, 255, 255, 0))
         else:
-            newData.append(item)
+            newData.append((255, 255, 255, 255))
     qr_code_img_f.putdata(newData)
     qr_bytes = io.BytesIO()
     qr_code_img_f.save(qr_bytes, format="PNG")

@@ -5,6 +5,11 @@ function compile(id,outputId) {
     e.contentDocument.write(code);
     e.contentDocument.close();
 }
+function changeSize(id,width,height){
+    console.log("Changed");
+    document.getElementById(id).style.width=width;
+    document.getElementById(id).style.height=height;
+}
 function showObject(id,display){
     document.getElementById(id).style.display=display;
 }
