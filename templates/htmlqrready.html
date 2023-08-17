@@ -4,26 +4,48 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QRify</title>
     <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/xq-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/xml/xml.min.js"></script>
 </head>
 <body onload="compile('file','output');">
-        <form action="/post" method="post" id="QRform">
-            <label for="encodeSelect">Select the encoding type:</label>
-            <select id="encodeSelect" name="encodeSelect">
-                <option value="optimal">Optimal</option>
-                <option value="base64">Base 64</option>
-                <option value="url">URL-Encode</option>
-            </select><br>
-            <input type="checkbox" id="min" name="min" value="min" class="checkbox">
-            <label for="min">Minimize HTML</label><br>
-            <input type="submit" value="Create" class="button">
-        </form>
-    <div class="center">
-        <div class="sameRow"><textarea form="QRform" class="editor" oninput="compile('file','output');" type="text" id="file" name="file" >...</textarea></div>
-        <div class="sameRow">
-            <iframe id="output" class="compiler"></iframe>   
-        </div>
-    </div>
+    <form action="/post" method="post" id="QRform">
+        <label for="encodeSelect">Select the encoding type:</label>
+        <select id="encodeSelect" name="encodeSelect">
+            <option value="optimal">Optimal</option>
+            <option value="base64">Base 64</option>
+            <option value="url">URL-Encode</option>
+        </select><br>
+        <input type="checkbox" id="min" name="min" value="min" class="checkbox">
+        <label for="min">Minimize HTML</label><br>
+        <input type="submit" value="Create" class="button">
+    </form>
+    <textarea form="QRform" type="text" id="file" name="file"></textarea>
+    <iframe id="output" class="compiler"></iframe>   
+   
     <script src="{{url_for('static',filename='compiler.js')}}" defer></script>
     <script src="{{url_for('static', filename='app.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script>
+        // Get a reference to the container element
+        var container = document.getElementById("file");
+        
+        // Initialize CodeMirror
+        var codeMirror = CodeMirror.fromTextArea(container, {
+            mode: "htmlmixed", // Specify the mode
+            lineNumbers: true, // Show line numbers
+            theme: "xq-dark", // Choose a theme
+            // Other configuration options...
+        });
+        codeMirror.on("change", function(instance, changeObj) {
+            // This function will be called when the content is edited
+            compile(codeMirror.getValue(),'output');
+        });
+    </script>
+
 </body>
 </html>

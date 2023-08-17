@@ -1,5 +1,4 @@
-function compile(id,outputId) {
-    const code = document.getElementById(id).value;
+function compile(code,outputId) {
     var e = document.getElementById(outputId);
     e.contentDocument.open();
     e.contentDocument.write(code);

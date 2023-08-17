@@ -38,7 +38,7 @@ def qr_code_img():
         encoded = base64.b64encode(convert_image(uploaded_file,img_format))
         img = create_data_url("image", img_format.lower(), True, str(encoded)[2:-1], False)
         try:
-            qr_bytes = create_qr_code(img)
+            qr_bytes = create_qr_code(img, "black", "white")
             encoded_string = base64.b64encode(qr_bytes.getvalue())
             qr_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
@@ -73,7 +73,7 @@ def qr_ready():
             if len(create_data_url("text", "html", False, data, True)) < len(data_url):
                 data_url = create_data_url("text", "html", False, data, True)
         try:
-            qr_bytes = create_qr_code(data_url)
+            qr_bytes = create_qr_code(data_url,"black", "white")
             encoded_string = base64.b64encode(qr_bytes.getvalue())
             img_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:

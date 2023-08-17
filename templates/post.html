@@ -11,7 +11,7 @@
     {%else%}
         <p>Failed to generate a QR code. File is too large. Try reducing the size of your code by removing unnecessary characters or using external files.</p>
     {%endif%}
-    <input class="copyString" id="data-url" readonly value="{{url}}" size="50"><button class="button" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
+    <input class="copyString" id="data-url" readonly value="{{url}}" size="50"><button class="button" onclick='copyToClipBoard("data-url")'>copy url</button><br>
     <script src="{{url_for('static',filename='compiler.js')}}" defer></script>
     <script src="{{url_for('static', filename='app.js')}}"></script>
 </body>
