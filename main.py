@@ -54,6 +54,8 @@ def qr_code_img():
 def qr_ready():
     if request.method == "POST":
         data = request.form.get("file", "<h1 style='color:red'>Hello World!</h1>")
+        fg_color = request.form.get("frontColor")
+        bg_color = request.form.get("backColor")
         minimize = request.form.get("min")!=None
         if minimize:
             data = htmlmin.minify(data, remove_empty_space=True, remove_comments=True, remove_all_empty_space=True,
@@ -73,7 +75,7 @@ def qr_ready():
             if len(create_data_url("text", "html", False, data, True)) < len(data_url):
                 data_url = create_data_url("text", "html", False, data, True)
         try:
-            qr_bytes = create_qr_code(data_url,"black", "white")
+            qr_bytes = create_qr_code(data_url,fg_color, bg_color)
             encoded_string = base64.b64encode(qr_bytes.getvalue())
             img_data = create_data_url("image", "png", True, str(encoded_string)[2:-1], False)
         except ValueError:
