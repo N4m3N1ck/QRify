@@ -56,6 +56,7 @@ def qr_ready():
         data = request.form.get("file", "<h1 style='color:red'>Hello World!</h1>")
         fg_color = request.form.get("frontColor")
         bg_color = request.form.get("backColor")
+        print(fg_color,bg_color)
         minimize = request.form.get("min")!=None
         if minimize:
             data = htmlmin.minify(data, remove_empty_space=True, remove_comments=True, remove_all_empty_space=True,

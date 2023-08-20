@@ -9,8 +9,15 @@
     box-sizing: border-box; 
 }
 body{
+    padding:30px;
     background-color: #0A001F;
     color: white;
+}
+label{
+    margin:10px;
+}
+input{
+    margin: 10px;
 }
 .compiler{
     background-color: white;
@@ -24,6 +31,7 @@ body{
     height: auto;
 }
 .button{
+    margin: 10px;
     color: white;
     width:80px;
     height:40px;
