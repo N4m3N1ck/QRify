@@ -26,9 +26,9 @@
         <input type="color" id="frontColor" name="frontColor" value="#000000"><br>
         <label for="backColor">Select QR background color:</label>
         <input type="color" id="backColor" name="backColor" value="#ffffff"><br>
+        <textarea form="QRform" type="text" id="file" name="file"></textarea>
         <input type="submit" value="Create" class="button">
     </form>
-    <textarea form="QRform" type="text" id="file" name="file"></textarea>
     <iframe id="output" class="compiler"></iframe>   
    
     <script src="{{url_for('static',filename='compiler.js')}}" defer></script>
