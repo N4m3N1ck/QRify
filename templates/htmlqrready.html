@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/htmlmixed/htmlmixed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/css/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/xq-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/isotope.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/xml/xml.min.js"></script>
 </head>
 <body onload="compile('file','output');">
@@ -42,7 +42,7 @@
         var codeMirror = CodeMirror.fromTextArea(container, {
             mode: "htmlmixed", // Specify the mode
             lineNumbers: true, // Show line numbers
-            theme: "xq-dark", // Choose a theme
+            theme: "isotope", // Choose a theme
             // Other configuration options...
         });
         codeMirror.on("change", function(instance, changeObj) {
