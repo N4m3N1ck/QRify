@@ -13,9 +13,9 @@
             <p>Failed to generate a QR code. The image is too large.</p>
         {%endif%}
         {%if data_show==True%}
-            <input id="data-url" readonly value="{{url}}" size="50"><button class="iconButton" onclick='copyToClipBoard("data-url")'>&#x2398;</button><br>
+            <input id="data-url" class="copyString" readonly value="{{url}}" size="50"><button class="button" onclick='copyToClipBoard("data-url")'>Copy</button><br>
             <p>Use the image in your html code:</p>
-            <input style="copyString" id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")'>Copy code</button><br>
+            <input class="copyString"id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")' class="button">Copy</button><br>
         {%else%}
             <p>The image is too large to display the data url</p>
         {%endif%}
