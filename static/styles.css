@@ -19,10 +19,12 @@ body{
     color: lime;
 }
 label{
-    margin:10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 input{
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .compiler{
     background-color: white;
@@ -41,7 +43,8 @@ input{
 }
 .button{
     color: lime;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     width:80px;
     height:40px;
     border: 2px solid lime;
