@@ -7,10 +7,15 @@
 	<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
 <body>
-	<div style="float:left;">
-		<h1> Fit your website in a QR code </h1>
-		<a href="/create/html">Start Now</a>
+	<div style="padding: 200px;">
+		<div style="float:left;">
+			<h1 style="margin-bottom: 50px;"> Fit your website in a QR code </h1>
+			<a href="/create/html">Start Now</a>
+		</div>
+		<div style="float:right;">
+			<p style="margin-left: 5px;"> Scan this QR!</p>
+			<img src="{{url_for('static',filename='images/example.png')}}" style="width:400px;">
+		</div>
 	</div>
-	<img src="{{url_for('static',filename='images/example.png')}}" style="width:400px;float:right;"><br>
 </body>
 </html>
