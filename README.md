@@ -1,7 +1,9 @@
-```This software is licensed under the Creative Commons
+```
+This software is licensed under the Creative Commons
 Attribution-NonCommercial 4.0 International License.
 To view a copy of this license, visit
-https://creativecommons.org/licenses/by-nc/4.0/```
+https://creativecommons.org/licenses/by-nc/4.0/
+```
 # QRify
 ## Fit your web page in a QR code
 QRify will allow you to fit an html file inside of a QR code, which then can be opened anywhere without the access to the internet. <br />
