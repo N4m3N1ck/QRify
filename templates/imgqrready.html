@@ -10,14 +10,14 @@
         {%if img!='error'%}
             <img src="{{img}}" class="image"><br>
         {%else%}
-            <p>Failed to generate a QR code. The image is too large.</p>
+	<p>! Failed to generate a QR code. The image is too large.</p><br>
         {%endif%}
         {%if data_show==True%}
             <input id="data-url" class="copyString" readonly value="{{url}}" size="50"><button class="button" onclick='copyToClipBoard("data-url")'>Copy</button><br>
             <p>Use the image in your html code:</p>
             <input class="copyString"id="html-img"size="50" readonly value="&lt;img src=&quot;{{url}}&quot; style=&quot;image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;&quot;&gt;"><button onclick='copyToClipBoard("html-img")' class="button">Copy</button><br>
         {%else%}
-            <p>The image is too large to display the data url</p>
+	<p>! The image is too large to display the data url</p><br>
         {%endif%}
         <img src="{{url}}" width="200" style="image-rendering: pixelated;image-rendering: -moz-crisp-edges;image-rendering: crisp-edges;">
     {%endif%}
